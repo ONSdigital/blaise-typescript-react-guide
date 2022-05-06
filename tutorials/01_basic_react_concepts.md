@@ -429,7 +429,7 @@ function UserPanel({ userId }: UserPanelProps): ReactElement {
         case 'error':
             return <div>Error loading user</div>;
         case 'loaded':
-            return <div>User: {user.name}</div>;
+            return <div>User: {userDetails.name}</div>;
     }
 }
 ```
