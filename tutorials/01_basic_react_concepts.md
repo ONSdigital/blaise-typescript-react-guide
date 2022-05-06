@@ -1,14 +1,14 @@
 # Basic React Concepts
 
-The document introduces the aspects of React via the concepts that are directly
-used in our codebase.
+The document introduces the aspects of React via the concepts that we use in our
+codebases.
 
 ## What is React?
 
 React is a _front-end_, _declarative_, _component-based_ framework.
 
 - **front-end**:
-    Runs in the browser create dynamic user experiences.
+    Runs in the browser to create dynamic user experiences.
 - **declarative**:
     You declare how the view should render based on the state,
     rather than manipulating it when the state changes.  
@@ -17,7 +17,7 @@ React is a _front-end_, _declarative_, _component-based_ framework.
 
 ## React Components
 
-React components can be defined in multiple different ways.
+You can define React components in multiple ways.
 
 The most common types of components are _class components_ and
 _functional components_.
@@ -94,8 +94,8 @@ export default class Counter extends React.Component<CounterProps, CounterState>
 
 ## Types of _Variables_
 
-When working with React components, there are types of _variable_ that you are
-need to work with when developing React components.
+When working with React components, there are different types of _variable_ that
+you need to work with when developing React components.
 
 - **props** variables
 - **state** variables
@@ -108,7 +108,8 @@ Props are used to pass values into a component from a parent.
 
 You **MUST NOT** update props within your component.
 
-If a prop value changes from out-side the component, your component **WILL** rerender.
+If a prop value changes from outside the component, your component **WILL**
+rerender.
 
 ```typescript jsx
 interface HelloProps {
@@ -155,7 +156,7 @@ function Input({ onUpdate }: InputProps): ReactElement {
 
 #### The `children` Property
 
-You can define a special property called `children` while allows you to render
+You can define a special property called `children` which allows you to render
 the child components of a property.
 
 ```typescript jsx
@@ -202,7 +203,7 @@ function UpperCase({value, children}: UpperCaseProps): ReactElement {
 
 State variables are for values that you want to change within the component.
 
-You **MUST** update state with the setter function.
+You **MUST** update state variables with the setter function.
 
 Any time a state variable changes, your component **WILL** rerender.
 
@@ -242,7 +243,7 @@ You can use local variables in a component but changing them **WILL NOT** cause
 the component to rerender.
 
 Local variables should only be used to track internal state which is not
-represented to the used.
+represented to the user.
 
 ```typescript jsx
 function Counter(): ReactElement {
@@ -269,11 +270,11 @@ function Counter(): ReactElement {
 
 ### Context
 
-Context provides an input to components like props, except you can access a
+Context provides inputs to components like props, except you can access a
 context without having to parse it all the way down the component hierarchy.
 
 Context can be thought of like global variables and should be reserved for
-special circumstances where many components might want access the same value.
+special circumstances where many components might want to access the same value.
 Typical examples are _the currently selected theme_ or _which user is currently
 logged in_.
 
@@ -315,9 +316,9 @@ function SideBar(): ReactElement {
 
 Hooks are a means to share reusable code between components.
 
-By convention, they are functions what are named `useSomething`.
+By convention, they are functions that are named `useSomething`.
 
-React provides a number of hooks for you to use, but you can also write your
+React provides some hooks for you to use, but you can also write your
 own hooks.
 
 ### Common Hooks
@@ -378,7 +379,7 @@ useEffect(() => {
 
 ### Rules of Hooks
 
-There are a number of rules you need to follow when calling hooks. **Disobeying
+There are several rules you need to follow when calling hooks. **Disobeying
 these rules can result in bugs!**
 
 The rules are described in
