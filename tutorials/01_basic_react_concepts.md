@@ -95,7 +95,7 @@ export default class Counter extends React.Component<CounterProps, CounterState>
 ## Types of _Variables_
 
 When working with React components, there are different types of _variable_ that
-you need to work with when developing React components.
+you need to use.
 
 - **props** variables
 - **state** variables
@@ -157,7 +157,7 @@ function Input({ onUpdate }: InputProps): ReactElement {
 #### The `children` Property
 
 You can define a special property called `children` which allows you to render
-the child components of a property.
+the child components of the component.
 
 ```typescript jsx
 interface FancyBoxProps {
@@ -196,6 +196,47 @@ function UpperCase({value, children}: UpperCaseProps): ReactElement {
     <UpperCase value={'world'}>
         {(subject) => <Hello subject={subject} />}
     </UpperCase>
+</App>
+```
+
+#### Components as properties
+
+You can pass React components as properties.
+
+```typescript jsx
+interface LoaderProps {
+    loadingScreen: ReactNode
+    errorScreen: (string) => ReactNode
+    loadedScreen: (string) => ReactNode
+}
+
+function Loader({loadingScreen, errorScreen, loadedScreen}: LoaderProps) {
+    const [state, setState] = useState('loading');
+    const [error, setError] = useState<string | null>(null);
+    const [data, setData] = useState<string | null>(null);
+    
+    useEffect(() => {
+        // logic to load the data and manipulate the state, data and error message
+    }, []);
+    
+    switch (state) {
+        case 'loading':
+            return loadedScreen;
+        case 'error':
+            return errorScreen(error);
+        case 'loaded':
+            return loadedScreen(data);
+    }
+}
+```
+
+```jsx
+<App>
+    <Loader
+        loadingScreen={<div>Loading</div>}
+        errorScreen={error => <div>Error: {error}</div>}
+        loadedScreen={data => <div>Loaded Data: {data}</div>}
+        />
 </App>
 ```
 
