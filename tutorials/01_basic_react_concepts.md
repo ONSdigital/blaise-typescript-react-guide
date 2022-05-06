@@ -33,8 +33,6 @@ introduction of [hooks](https://reactjs.org/docs/hooks-intro.html), functional
 components can be used exclusively.
 
 ```typescript jsx
-import { ReactElement } from "react";
-
 interface CounterProps {
     name: string
 }
@@ -134,8 +132,6 @@ If you need to send a value back from a component to a parent component, you
 can pass a function as a property.
 
 ```typescript jsx
-import { ReactElement } from "react";
-
 interface InputProps {
     onUpdate: (value: string) => void
 }
@@ -282,8 +278,6 @@ Typical examples are _the currently selected theme_ or _which user is currently
 logged in_.
 
 ```typescript jsx
-import { ReactElement, useContext } from "react";
-
 interface User {
     name: string
 }
@@ -401,8 +395,6 @@ You can build custom hooks by simply defining a function called `useYouHookName`
 and building logic using the existing React Hooks.
 
 ```typescript
-import { useEffect } from "react";
-
 function useUserDetails(userId: number) {
     const [state, setState] = useState('loading');
     const [userDetails, setUserDetails] = userDetails<UserDetails | null>(null);
