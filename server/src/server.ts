@@ -17,7 +17,7 @@ export default function server(): Express {
     res
       .status(200)
       .header('Content-Type', 'application/json')
-      .send({message: 'pong'});
+      .send({ message: 'pong' });
   });
 
   return app;
