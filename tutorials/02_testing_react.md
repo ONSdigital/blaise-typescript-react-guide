@@ -78,17 +78,17 @@ When testing React components, most of your tests will need to be async.
 
 ### Grouping Test Functions
 
-There are two more functions which you can use to group tests, `describe` and
-`context`. Again, these are just aliases to each other and the choice is based
-on what reads best. A convention that works quite nicely is:
+There is another function which you can use to group tests, `describe`. Again,
+these are just aliases to each other and the choice is based on what reads best.
+A convention that works quite nicely is:
 
 ```typescript
 describe('function, class or component name', () => {
-    context('when successful', () => {
+    describe('when successful', () => {
         // tests...
     });
     
-    context('when failing', () => {
+    describe('when failing', () => {
         // tests..
     });
 });
