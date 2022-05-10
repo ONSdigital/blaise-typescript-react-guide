@@ -58,10 +58,11 @@ describe('SurveySelector', () => {
         fireEvent.click(screen.getByLabelText('SURVEY2'));
         fireEvent.click(screen.getByLabelText('SURVEY1'));
       });
-      expect(onUpdate).toHaveBeenCalledTimes(3);
-      expect(onUpdate.mock.calls[0]).toContainEqual(['SURVEY1']);
-      expect(onUpdate.mock.calls[1]).toContainEqual(['SURVEY1', 'SURVEY2']);
-      expect(onUpdate.mock.calls[2]).toContainEqual(['SURVEY2']);
+      expect(onUpdate).toHaveBeenCalledTimes(4);
+      expect(onUpdate.mock.calls[0]).toContainEqual([]);
+      expect(onUpdate.mock.calls[1]).toContainEqual(['SURVEY1']);
+      expect(onUpdate.mock.calls[2]).toContainEqual(['SURVEY1', 'SURVEY2']);
+      expect(onUpdate.mock.calls[3]).toContainEqual(['SURVEY2']);
     });
 
     test('snapshot', async () => {

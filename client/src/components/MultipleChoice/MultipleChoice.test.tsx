@@ -35,10 +35,11 @@ describe('MultipleChoice', () => {
       fireEvent.click(screen.getByLabelText('Option 3'));
       fireEvent.click(screen.getByLabelText('Option 1'));
     });
-    expect(onUpdate).toHaveBeenCalledTimes(3);
-    expect(onUpdate.mock.calls[0]).toContainEqual(['Option 1']);
-    expect(onUpdate.mock.calls[1]).toContainEqual(['Option 1', 'Option 3']);
-    expect(onUpdate.mock.calls[2]).toContainEqual(['Option 3']);
+    expect(onUpdate).toHaveBeenCalledTimes(4);
+    expect(onUpdate.mock.calls[0]).toContainEqual([]);
+    expect(onUpdate.mock.calls[1]).toContainEqual(['Option 1']);
+    expect(onUpdate.mock.calls[2]).toContainEqual(['Option 1', 'Option 3']);
+    expect(onUpdate.mock.calls[3]).toContainEqual(['Option 3']);
   });
 
   test('snapshot', () => {

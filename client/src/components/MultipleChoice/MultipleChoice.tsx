@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Checkbox from '../Checkbox/Checkbox';
 
 interface MultipleChoiceProps {
@@ -11,20 +11,16 @@ export default function MultipleChoice({ question, values, onUpdate }: MultipleC
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [selected, setSelected] = useState<string[]>([]);
 
-  function updateSelected(update: (current: string[]) => string[]) {
-    setSelected((current) => {
-      const newSelected = update(current);
-      onUpdate(newSelected);
-      return newSelected;
-    });
-  }
+  useEffect(() => {
+    onUpdate(selected);
+  }, [onUpdate, selected]);
 
   function selectValue(value: string) {
-    updateSelected((current) => [...current, value]);
+    setSelected((current) => [...current, value]);
   }
 
   function unselectValue(value: string) {
-    updateSelected((current) => current.filter((item) => item !== value));
+    setSelected((current) => current.filter((item) => item !== value));
   }
 
   return (
