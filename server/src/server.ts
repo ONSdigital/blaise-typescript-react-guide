@@ -20,5 +20,11 @@ export default function server(): Express {
       .send({ message: 'pong' });
   });
 
+  app.get('/surveys', (_, res) => {
+    res
+      .status(200)
+      .send(['LMS', 'OPN']);
+  });
+
   return app;
 }
