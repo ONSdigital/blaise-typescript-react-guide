@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Checkbox from '../Checkbox/Checkbox';
+import Checkbox from '../Checkbox';
 
 interface MultipleChoiceProps {
   question: string

@@ -1,5 +1,5 @@
 import React, { ReactElement, ReactNode } from 'react';
-import APILoader from '../APILoader/APILoader';
+import APILoader from '../APILoader';
 
 interface SurveyLoaderProps {
   renderLoading: ReactNode;
