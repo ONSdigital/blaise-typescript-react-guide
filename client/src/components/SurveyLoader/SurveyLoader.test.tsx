@@ -14,7 +14,7 @@ describe('SurveyLoader', () => {
   function renderSurveyLoader() {
     return render(
       <APIContext.Provider value={config}>
-        <SurveyLoader loadingMessage="Loading Message" errorMessage={(error) => `Failed: ${error}`}>
+        <SurveyLoader renderLoading="Loading Message" renderError={(error) => `Failed: ${error}`}>
           {(surveys) => surveys.map((survey) => <div key={survey}>{survey}</div>)}
         </SurveyLoader>
       </APIContext.Provider>,

@@ -4,16 +4,16 @@ import { ResponseState, useAPIGetRequest } from '../../hooks';
 interface APILoaderProps {
   path: string;
   cssName: string
-  loadingMessage: ReactNode;
-  errorMessage: (error: string) => ReactNode;
+  renderLoading: ReactNode;
+  renderError: (error: string) => ReactNode;
   children: (surveys: string[]) => ReactNode;
 }
 
 export default function APILoader({
   path,
   cssName,
-  loadingMessage,
-  errorMessage,
+  renderLoading,
+  renderError,
   children,
 }: APILoaderProps): ReactElement {
   const response = useAPIGetRequest<string[]>(path);
@@ -23,10 +23,10 @@ export default function APILoader({
       case ResponseState.LOADED:
         return <div className={`${cssName}__loaded`}>{children(response.data)}</div>;
       case ResponseState.ERROR:
-        return <div className={`${cssName}__error`}>{errorMessage(response.error)}</div>;
+        return <div className={`${cssName}__error`}>{renderError(response.error)}</div>;
       case ResponseState.LOADING:
       default:
-        return <div className={`${cssName}__loading`}>{loadingMessage}</div>;
+        return <div className={`${cssName}__loading`}>{renderLoading}</div>;
     }
   }
 

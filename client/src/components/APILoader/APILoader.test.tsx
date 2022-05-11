@@ -13,8 +13,8 @@ describe('APILoader', () => {
     return render(
       <APIContext.Provider value={config}>
         <APILoader
-          loadingMessage="Loading Message"
-          errorMessage={(error) => `Failed: ${error}`}
+          renderLoading="Loading Message"
+          renderError={(error) => `Failed: ${error}`}
           path="/surveys"
           cssName="survey-loader"
         >

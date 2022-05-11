@@ -9,15 +9,11 @@ interface SurveySelectorProps {
 }
 
 export default function SurveySelector({ onUpdate }: SurveySelectorProps): ReactElement {
-  function errorMessage(error: string): ReactNode {
-    return <ErrorMessage message={error} />;
-  }
-
   return (
     <div>
       <SurveyLoader
-        loadingMessage={<LoadingSpinner />}
-        errorMessage={(error) => errorMessage(error)}
+        renderLoading={<LoadingSpinner />}
+        renderError={(error) => <ErrorMessage message={error} />}
       >
         {(surveys) => <MultipleChoice question="Which surveys are your favourite?" values={surveys} onUpdate={onUpdate} />}
       </SurveyLoader>
