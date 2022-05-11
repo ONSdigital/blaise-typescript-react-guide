@@ -9,14 +9,24 @@ Object {
         class="survey-loader"
       >
         <div
-          class="survey-loader__loading"
+          class="survey-loader__error"
         >
-          Loading Message
+          Failed: Error: Request failed with status code 500
         </div>
       </div>
     </div>
   </body>,
-  "container": <div />,
+  "container": <div>
+    <div
+      class="survey-loader"
+    >
+      <div
+        class="survey-loader__error"
+      >
+        Failed: Error: Request failed with status code 500
+      </div>
+    </div>
+  </div>,
   "debug": [Function],
   "findAllByAltText": [Function],
   "findAllByDisplayValue": [Function],
@@ -80,9 +90,14 @@ Object {
         class="survey-loader"
       >
         <div
-          class="survey-loader__loading"
+          class="survey-loader__loaded"
         >
-          Loading Message
+          <div>
+            SURVEY1
+          </div>
+          <div>
+            SURVEY2
+          </div>
         </div>
       </div>
     </div>
@@ -92,9 +107,14 @@ Object {
       class="survey-loader"
     >
       <div
-        class="survey-loader__loading"
+        class="survey-loader__loaded"
       >
-        Loading Message
+        <div>
+          SURVEY1
+        </div>
+        <div>
+          SURVEY2
+        </div>
       </div>
     </div>
   </div>,

@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import APIContext from '../components/APIContext';
 import { useAPIGetRequest } from './index';
 import { ResponseState } from './useAPIGetRequest';
@@ -42,15 +42,22 @@ describe('useAPIGetRequest', () => {
     );
   }
 
-  it('returns the loading state while waiting', () => {
+  it('returns the loading state while waiting', async () => {
     mock.onGet(
       'https://example.com/api/v1/resources',
-      () => new Promise(() => { /* never resolve */ }),
+      () => new Promise((resolve) => {
+        setTimeout(() => resolve([200, []]), 200);
+      }),
     );
 
     renderTestComponent();
 
     expect(screen.getByText('Loading')).toBeInTheDocument();
+
+    // The following waits for state updates to complete so that act warnings don't appear
+    await waitFor(() => {
+      expect(screen.queryByText('Loading')).not.toBeInTheDocument();
+    });
   });
 
   it('returns the data when loaded', async () => {

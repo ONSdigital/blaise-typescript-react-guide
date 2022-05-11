@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  act, fireEvent, render, RenderResult, screen,
-} from '@testing-library/react';
+import { act, fireEvent, render, RenderResult, screen, } from '@testing-library/react';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import SurveySelector from './SurveySelector';
@@ -27,10 +25,10 @@ describe('SurveySelector', () => {
     beforeEach(() => {
       httpMock.onGet('http://example.com/api/surveys')
         .reply(() => new Promise(() => { /* never resolve */ }));
-      renderSurveySelector();
     });
 
     test('snapshot', () => {
+      renderSurveySelector();
       expect(wrapper).toMatchSnapshot();
     });
   });
@@ -39,19 +37,21 @@ describe('SurveySelector', () => {
     beforeEach(() => {
       httpMock.onGet('http://example.com/api/surveys')
         .reply(200, ['SURVEY1', 'SURVEY2']);
-      renderSurveySelector();
     });
 
     it('renders the select surveys message', async () => {
+      renderSurveySelector();
       expect(await screen.findByText('Which surveys are your favourite?')).toBeInTheDocument();
     });
 
     it('renders the list of surveys', async () => {
+      renderSurveySelector();
       expect(await screen.findByText('SURVEY1')).toBeInTheDocument();
       expect(await screen.findByText('SURVEY1')).toBeInTheDocument();
     });
 
     it('calls onUpdate when options are checked/unchecked', async () => {
+      renderSurveySelector();
       await screen.findByText('SURVEY1');
       act(() => {
         fireEvent.click(screen.getByLabelText('SURVEY1'));
@@ -66,6 +66,7 @@ describe('SurveySelector', () => {
     });
 
     test('snapshot', async () => {
+      renderSurveySelector();
       await screen.findByText('SURVEY1');
       expect(wrapper).toMatchSnapshot();
     });
@@ -75,10 +76,10 @@ describe('SurveySelector', () => {
     beforeEach(() => {
       httpMock.onGet('http://example.com/api/surveys')
         .reply(500, {});
-      renderSurveySelector();
     });
 
     test('snapshot', async () => {
+      renderSurveySelector();
       await screen.findByText('Error:');
       expect(wrapper).toMatchSnapshot();
     });

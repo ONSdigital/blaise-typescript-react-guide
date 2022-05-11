@@ -9,8 +9,6 @@ describe('APILoader', () => {
   const mock = new MockAdapter(axios);
   const config = { endpoint: 'https://example.com/api/v1' };
 
-  let wrapper: RenderResult;
-
   function renderAPILoader() {
     return render(
       <APIContext.Provider value={config}>
@@ -29,16 +27,18 @@ describe('APILoader', () => {
   describe('when waiting for the response', () => {
     beforeEach(() => {
       mock.onGet('https://example.com/api/v1/surveys')
-        .reply(() => new Promise(() => { /* never resolve */ }));
-
-      wrapper = renderAPILoader();
+        .reply(() => new Promise((resolve) => {
+          setTimeout(() => resolve([200, []]), 200);
+        }));
     });
 
     it('displays the loading message', () => {
+      renderAPILoader();
       expect(screen.getByText('Loading Message')).toBeInTheDocument();
     });
 
     test('snapshot', () => {
+      const wrapper = renderAPILoader();
       expect(wrapper).toMatchSnapshot();
     });
   });
@@ -47,16 +47,17 @@ describe('APILoader', () => {
     beforeEach(() => {
       mock.onGet('https://example.com/api/v1/surveys')
         .reply(200, ['SURVEY1', 'SURVEY2']);
-
-      wrapper = renderAPILoader();
     });
 
     it('renders children with surveys', async () => {
+      renderAPILoader();
       expect(await screen.findByText('SURVEY1')).toBeInTheDocument();
       expect(await screen.findByText('SURVEY2')).toBeInTheDocument();
     });
 
-    test('snapshot', () => {
+    test('snapshot', async () => {
+      const wrapper = renderAPILoader();
+      await screen.findByText('SURVEY1');
       expect(wrapper).toMatchSnapshot();
     });
   });
@@ -65,15 +66,16 @@ describe('APILoader', () => {
     beforeEach(() => {
       mock.onGet('https://example.com/api/v1/surveys')
         .reply(500, 'error occurred');
-
-      renderAPILoader();
     });
 
     it('displays HTTP errors', async () => {
+      renderAPILoader();
       expect(await screen.findByText('Failed: Error: Request failed with status code 500')).toBeInTheDocument();
     });
 
-    test('snapshot', () => {
+    test('snapshot', async () => {
+      const wrapper = renderAPILoader();
+      await screen.findByText(/Failed:/);
       expect(wrapper).toMatchSnapshot();
     });
   });
@@ -84,16 +86,17 @@ describe('APILoader', () => {
         .reply(() => {
           throw new Error('error message');
         });
-
-      renderAPILoader();
     });
 
     it('displays non-HTTP errors', async () => {
+      renderAPILoader();
       expect(await screen.findByText('Failed: Error: error message'))
         .toBeInTheDocument();
     });
 
-    test('snapshot', () => {
+    test('snapshot', async () => {
+      const wrapper = renderAPILoader();
+      await screen.findByText(/Failed:/);
       expect(wrapper).toMatchSnapshot();
     });
   });
