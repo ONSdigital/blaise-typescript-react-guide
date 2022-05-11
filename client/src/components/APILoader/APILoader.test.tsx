@@ -3,20 +3,25 @@ import { render, RenderResult, screen } from '@testing-library/react';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import APIContext from '../APIContext';
-import SurveyLoader from './SurveyLoader';
+import APILoader from './APILoader';
 
-describe('SurveyLoader', () => {
+describe('APILoader', () => {
   const mock = new MockAdapter(axios);
   const config = { endpoint: 'https://example.com/api/v1' };
 
   let wrapper: RenderResult;
 
-  function renderSurveyLoader() {
+  function renderAPILoader() {
     return render(
       <APIContext.Provider value={config}>
-        <SurveyLoader loadingMessage="Loading Message" errorMessage={(error) => `Failed: ${error}`}>
+        <APILoader
+          loadingMessage="Loading Message"
+          errorMessage={(error) => `Failed: ${error}`}
+          path="/surveys"
+          cssName="survey-loader"
+        >
           {(surveys) => surveys.map((survey) => <div key={survey}>{survey}</div>)}
-        </SurveyLoader>
+        </APILoader>
       </APIContext.Provider>,
     );
   }
@@ -26,7 +31,7 @@ describe('SurveyLoader', () => {
       mock.onGet('https://example.com/api/v1/surveys')
         .reply(() => new Promise(() => { /* never resolve */ }));
 
-      wrapper = renderSurveyLoader();
+      wrapper = renderAPILoader();
     });
 
     it('displays the loading message', () => {
@@ -43,7 +48,7 @@ describe('SurveyLoader', () => {
       mock.onGet('https://example.com/api/v1/surveys')
         .reply(200, ['SURVEY1', 'SURVEY2']);
 
-      wrapper = renderSurveyLoader();
+      wrapper = renderAPILoader();
     });
 
     it('renders children with surveys', async () => {
@@ -56,16 +61,36 @@ describe('SurveyLoader', () => {
     });
   });
 
-  describe('when an error occurs', () => {
+  describe('when HTTP error is returned', () => {
     beforeEach(() => {
       mock.onGet('https://example.com/api/v1/surveys')
         .reply(500, 'error occurred');
 
-      renderSurveyLoader();
+      renderAPILoader();
     });
 
-    it('displays the errors', async () => {
+    it('displays HTTP errors', async () => {
       expect(await screen.findByText('Failed: Error: Request failed with status code 500')).toBeInTheDocument();
+    });
+
+    test('snapshot', () => {
+      expect(wrapper).toMatchSnapshot();
+    });
+  });
+
+  describe('when error is thrown', () => {
+    beforeEach(() => {
+      mock.onGet('https://example.com/api/v1/surveys')
+        .reply(() => {
+          throw new Error('error message');
+        });
+
+      renderAPILoader();
+    });
+
+    it('displays non-HTTP errors', async () => {
+      expect(await screen.findByText('Failed: Error: error message'))
+        .toBeInTheDocument();
     });
 
     test('snapshot', () => {

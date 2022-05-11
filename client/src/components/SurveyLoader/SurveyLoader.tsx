@@ -1,5 +1,6 @@
 import React, { ReactElement, ReactNode } from 'react';
 import { ResponseState, useAPIGetRequest } from '../../hooks';
+import APILoader from '../APILoader/APILoader';
 
 interface SurveyLoaderProps {
   loadingMessage: ReactNode;
@@ -26,5 +27,14 @@ export default function SurveyLoader({
     }
   }
 
-  return <div className="survey-loader">{render()}</div>;
+  return (
+    <APILoader
+      path="/surveys"
+      cssName="survey-loader"
+      loadingMessage={loadingMessage}
+      errorMessage={errorMessage}
+    >
+      {children}
+    </APILoader>
+  );
 }
