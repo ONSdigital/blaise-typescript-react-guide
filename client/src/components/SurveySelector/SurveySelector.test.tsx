@@ -1,5 +1,7 @@
 import React from 'react';
-import { act, fireEvent, render, RenderResult, screen, } from '@testing-library/react';
+import {
+  act, fireEvent, render, RenderResult, screen,
+} from '@testing-library/react';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import SurveySelector from './SurveySelector';

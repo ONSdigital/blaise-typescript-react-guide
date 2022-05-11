@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  render, RenderResult, screen, waitFor,
-} from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import APIContext from '../APIContext';
