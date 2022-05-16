@@ -109,14 +109,14 @@ describe('search', () => {
         query.setSurvey('LMS');
     });
     
-    context('when no questionnaire is selected', () => {
+    describe('when no questionnaire is selected', () => {
         it('returns results for all questionnaires', () => {
             const results = search(query);
             // ...
         });
     });
     
-    context('when one questionnaire is selected', () => {
+    describe('when one questionnaire is selected', () => {
         beforeEach(() => {
             query.addQuestionnaire('LMS_123');
         });
